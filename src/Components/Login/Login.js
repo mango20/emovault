@@ -14,26 +14,24 @@ function Login() {
     const userPass = document.getElementById("userEmail").value;
 
     localStorage.setItem("user", userEmail);
-    Axios.post("http://localhost:5001/api/auth/login", {
+    Axios.post("https://emovault.herokuapp.com/api/auth/login", {
       email: email,
       password: password,
     })
       .then((response) => {
         console.log(response);
-        if (response.data.user.role === "Clinician") {
+        if (response.data.role === "Clinician") {
           navigate("/ClinicianClients");
         }
-        if (response.data.user.role === "Patient") {
+        if (response.data.role === "Patient") {
           navigate("/DatePick");
         }
-        if (response.data.user.role === "Admin") {
+        if (response.data.role === "Admin") {
           navigate("/ClinicianList");
         }
       })
       .catch((error) => {
-        console.log(error.response.data.message);
-        setErrMsg(error.response.data.message);
-        document.getElementById("errorMsg").style.display = "block";
+        console.log(error.response);
       });
   };
   const up = () => {
