@@ -289,18 +289,19 @@ span {
   border-radius: 10px;
   background-color: var(--vio);
   border-radius: 50%;
+  width: 500px;
 }
 
 #homeImg {
   animation-name: imgzoom;
-  animation-duration: 3s;
+  animation-duration: 4s;
 }
 
 @keyframes imgzoom {
   0% {
     width: 30%;
   }
-  90% {
+  100% {
     width: 100%;
   }
 }

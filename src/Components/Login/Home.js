@@ -5,7 +5,8 @@ function Home() {
   const navigate = useNavigate();
   setTimeout(function() {
     navigate("/Login");
-  }, 5000);
+    window.location.reload();
+  }, 3000);
   return (
     <div className="home-bg">
       <div
