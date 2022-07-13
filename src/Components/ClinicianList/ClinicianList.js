@@ -90,7 +90,7 @@ function ClinicianList() {
   };
 
   return (
-    <>
+    <div>
       <EmoNavbar />
       <div className="clinicians-tb-bg">
         <div className="clinicians-tb-in">
@@ -262,7 +262,7 @@ function ClinicianList() {
           </Table>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
