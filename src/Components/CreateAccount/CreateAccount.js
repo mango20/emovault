@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Axios from "axios";
 import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmoNavbar from "../Navbar/EmoNavbar";
 
 import { Image } from "cloudinary-react";
@@ -28,6 +28,7 @@ function CreateAccount() {
   );
 
   const createClinician = () => {
+    const token = localStorage.getItem("token");
     //regex
     const nameRegex = /^([a-zA-Z\s\.]{1,50})$/;
     const usernameRegex = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._!-]+(?<![_.])$/;
@@ -121,18 +122,23 @@ function CreateAccount() {
         console.log(response.data.secure_url);
         setimgurl(response.data.secure_url);
         Axios.defaults.withCredentials = true;
-        Axios.post("http://localhost:5001/api/users/clinician", {
-          firstName: firstName,
-          lastName: lastName,
-          contactNo: contactNo,
-          email: email,
-          yearsInPractice: yearsInPractice,
-          license: license,
-          username: username,
-          password: password,
-          certificates: "",
-          picture: response.data.secure_url,
-        })
+
+        Axios.post(
+          "https://emovault.herokuapp.com/api/users/clinician?token=${token}",
+          {
+            token: token,
+            firstName: firstName,
+            lastName: lastName,
+            contactNo: contactNo,
+            email: email,
+            yearsInPractice: yearsInPractice,
+            license: license,
+            username: username,
+            password: password,
+            certificates: "",
+            picture: response.data.secure_url,
+          }
+        )
           .then((response) => {
             console.log(response.data);
           })
@@ -197,6 +203,11 @@ function CreateAccount() {
   //       console.log(error);
   //     });
   // };
+  const navigate = useNavigate();
+  const back = () => {
+    navigate("/ClinicianList");
+    window.location.reload();
+  };
 
   return (
     <>
@@ -212,7 +223,7 @@ function CreateAccount() {
           <center>
             <img
               className="mb-3"
-              src={window.location.origin + "/trash.svg"}
+              src={window.location.origin + "/adminHappy.svg"}
               alt="trash"
               style={{
                 width: "200px",
@@ -229,8 +240,9 @@ function CreateAccount() {
             <Button
               style={{
                 width: "100%",
-                background: "var(--dvio)",
-                borderColor: "var(--dvio)",
+                background: "var(--yellow)",
+                borderColor: "var(--yellow)",
+                color: "black",
                 outline: "none",
                 boxShadow: "none",
               }}
@@ -262,8 +274,7 @@ function CreateAccount() {
                 <Form.Group className="back-cont">
                   <Form.Label
                     className="text-right mb-2 ca-back-btn"
-                    as={Link}
-                    to="/ClinicianList"
+                    onClick={back}
                     style={{
                       color: "black",
                       textDecoration: "none",

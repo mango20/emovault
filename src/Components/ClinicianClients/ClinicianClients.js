@@ -24,11 +24,16 @@ function ClinicianClients() {
   Axios.defaults.withCredentials = true;
   const [clinicianClientList, setclinicianClientList] = useState([]);
   const userEmail = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
   useEffect(() => {
     console.log(userEmail);
-    Axios.get(`http://localhost:5001/api/users/getpatients`, {
-      email: userEmail,
-    })
+    Axios.get(
+      `https://emovault.herokuapp.com/api/users/getpatients?token=${token}`,
+      {
+        token: token,
+        email: userEmail,
+      }
+    )
       .then((response) => {
         setclinicianClientList(response.data.patients);
         console.log(response.data);

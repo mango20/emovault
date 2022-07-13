@@ -31,12 +31,16 @@ function ListClients() {
   const cEmail = JSON.parse(localStorage.getItem("Clinician")).email;
   const cName = JSON.parse(localStorage.getItem("Clinician")).name;
   console.log(cEmail);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    setclinicianName(cEmail);
-    Axios.get(`http://localhost:5001/api/users/getpatients?email=${cEmail}`, {
-      email: cEmail,
-    })
+    setclinicianName(cName);
+    Axios.get(
+      `https://emovault.herokuapp.com/api/users/getpatients?token=${token}&email=${cEmail}`,
+      {
+        email: cEmail,
+        token: token,
+      }
+    )
       .then((response) => {
         setclientList(response.data.patients);
         console.log(response.data);

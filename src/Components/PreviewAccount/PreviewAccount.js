@@ -22,10 +22,17 @@ function PreviewAccount() {
   const [password, setpassword] = useState([]);
   const [license, setlicense] = useState([]);
   const [certificates, setcertificates] = useState([]);
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    Axios.get(`http://localhost:5001/api/users/clinician?email=${cEmail}`)
+    Axios.get(
+      `https://emovault.herokuapp.com/api/users/clinician?token=${token}&email=${cEmail}`,
+      {
+        token: token,
+        email: cEmail,
+      }
+    )
       .then((response) => {
-        console.log(response.data.clinician);
+        console.log(response.data);
         setfirstName(response.data.clinician.firstName);
         setlastName(response.data.clinician.lastName);
         setcontactNo(response.data.clinician.contactNo);

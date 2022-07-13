@@ -20,13 +20,13 @@ function AdminProfile() {
   const [imgurl, setimgurl] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   console.log(cemail);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    Axios.defaults.withCredentials = true;
     Axios.get(
-      `http://localhost:5001/api/users/admin?email=${cemail}`,
+      `https://emovault.herokuapp.com/api/users/admin?token=${token}`,
 
-      { email: cemail }
+      { email: cemail, token: token }
     )
       .then((response) => {
         setclientFirstName(response.data.admin.firstName);
@@ -40,7 +40,7 @@ function AdminProfile() {
         console.log("nays");
       })
       .catch((error) => {
-        console.log("sdf" + error);
+        console.log(error);
       });
   }, []);
 
@@ -108,7 +108,7 @@ function AdminProfile() {
       setIsVisible(true);
       Axios.defaults.withCredentials = true;
       Axios.patch(
-        `http://localhost:5001/api/users/admin?email=${cemail}`,
+        `https://emovault.herokuapp.com/api/users/admin?email=${cemail}`,
 
         {
           firstName: clientFirstName,
@@ -163,7 +163,7 @@ function AdminProfile() {
           setimgurl(response.data.secure_url);
           Axios.defaults.withCredentials = true;
           Axios.patch(
-            `http://localhost:5001/api/users/patient?email=${cemail}`,
+            `https://emovault.herokuapp.com/users/patient?email=${cemail}`,
 
             {
               firstName: clientFirstName,
@@ -255,7 +255,7 @@ function AdminProfile() {
     ) {
       setIsVisible(true);
       Axios.patch(
-        `http://localhost:5001/api/users/patient?email=${cemail}`,
+        `https://emovault.herokuapp.com/api/users/patient?email=${cemail}`,
 
         {
           firstName: clientFirstName,

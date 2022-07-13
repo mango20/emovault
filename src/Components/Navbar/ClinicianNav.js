@@ -14,8 +14,12 @@ function ClinicianNav() {
   Axios.defaults.withCredentials = true;
   const [name, setName] = useState([]);
   const [img, setImg] = useState([]);
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    Axios.get("http://localhost:5001/api/auth/getinfo").then((response) => {
+    Axios.get(
+      `https://emovault.herokuapp.com/api/auth/getinfo?token=${token}`,
+      { token: token }
+    ).then((response) => {
       setName(response.data.user.firstName);
       setImg(response.data.user.picture);
     });

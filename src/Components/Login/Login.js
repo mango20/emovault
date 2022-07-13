@@ -19,7 +19,8 @@ function Login() {
       password: password,
     })
       .then((response) => {
-        console.log(response);
+        localStorage.setItem("token", response.data.token);
+        console.log(response.data.token);
         if (response.data.role === "Clinician") {
           navigate("/ClinicianClients");
         }

@@ -195,7 +195,7 @@ function AdminChangePassword() {
               <center>
                 <img
                   className="passwordImage"
-                  src={process.env.PUBLIC_URL + "/password.svg"}
+                  src={process.env.PUBLIC_URL + "/adminPass.svg"}
                 />
               </center>
             </div>

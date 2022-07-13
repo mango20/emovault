@@ -24,12 +24,18 @@ import Moment from "react-moment";
 function ClinicianList() {
   Axios.defaults.withCredentials = true;
   const [clinicianList, setClinicianList] = useState([]);
-
+  const token = localStorage.getItem("token");
+  const cEmail = localStorage.getItem("user");
   useEffect(() => {
-    Axios.get("http://localhost:5001/api/users/getclinicians")
+    Axios.get(
+      `https://emovault.herokuapp.com/api/users/getclinicians?token=${token}&email=${cEmail}`,
+      {
+        token: token,
+      }
+    )
       .then((response) => {
         setClinicianList(response.data.clinicians);
-        console.log(response.data.clinicians);
+        console.log(response.data);
         console.log("nays");
       })
       .catch((error) => {

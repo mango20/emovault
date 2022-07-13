@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ClinicianNav from "../Navbar/ClinicianNav";
 function UpdateUser() {
   const [patientEmail, setpatientEmail] = useState("");
@@ -20,12 +20,16 @@ function UpdateUser() {
   const [isVisible, setIsVisible] = useState(false);
   const userEmail = localStorage.getItem("Update");
   console.log(userEmail);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     Axios.defaults.withCredentials = true;
-    Axios.get(`http://localhost:5001/api/users/patient?email=${userEmail}`, {
-      email: userEmail,
-    })
+    Axios.get(
+      `https://emovault.herokuapp.com/api/users/patient?token=${token}&email=${userEmail}`,
+      {
+        email: userEmail,
+        token: token,
+      }
+    )
       .then((response) => {
         setpatientEmail(response.data.patient.email);
         setpatientFirstName(response.data.patient.firstName);
@@ -60,7 +64,7 @@ function UpdateUser() {
         setimgurl(response.data.secure_url);
         Axios.defaults.withCredentials = true;
         Axios.patch(
-          `http://localhost:5001/api/users/patient?email=${userEmail}`,
+          `https://emovault.herokuapp.com/api/users/patient?email=${userEmail}`,
           {
             firstName: patientFirstName,
             lastName: patientLastName,
@@ -76,9 +80,10 @@ function UpdateUser() {
             console.log(response.data);
             console.log("nays");
             Axios.get(
-              `http://localhost:5001/api/users/patient?email=${userEmail}`,
+              `https://emovault.herokuapp.com/api/users/patient?token=${token}`,
               {
                 email: userEmail,
+                token: token,
               }
             ).then((response) => {
               console.log(response.data);
@@ -93,7 +98,9 @@ function UpdateUser() {
       });
   };
 
+  const navigate = useNavigate();
   const back = () => {
+    navigate("/UserManagement");
     window.location.reload();
   };
   return (
@@ -145,8 +152,7 @@ function UpdateUser() {
                 <Form.Group className="back-cont">
                   <Form.Label
                     className="text-right mb-2 um-back-btn"
-                    as={Link}
-                    to={"/UserManagement"}
+                    onClick={back}
                     style={{
                       color: "black",
                       textDecoration: "none",

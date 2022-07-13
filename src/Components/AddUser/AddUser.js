@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import Axios from "axios";
 import ClinicianNav from "../Navbar/ClinicianNav";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 function AddUser() {
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
@@ -21,6 +21,7 @@ function AddUser() {
   const [preImg, setpreImg] = useState(
     "https://res.cloudinary.com/dlvt2lnkh/image/upload/v1656746343/emovaultClient/egj5r6ccwa0my7skdkfc.png"
   );
+  const token = localStorage.getItem("token");
 
   const submit = () => {
     //regex
@@ -100,15 +101,19 @@ function AddUser() {
           setimgurl(response.data.secure_url);
           Axios.defaults.withCredentials = true;
 
-          Axios.post("http://localhost:5001/api/users/patient", {
-            firstName: firstName,
-            lastName: lastName,
-            contactNo: contactNo,
-            email: email,
-            picture: response.data.secure_url,
-            username: username,
-            password: password,
-          })
+          Axios.post(
+            "https://emovault.herokuapp.com/api/users/patient?token=${token}",
+            {
+              token: token,
+              firstName: firstName,
+              lastName: lastName,
+              contactNo: contactNo,
+              email: email,
+              picture: response.data.secure_url,
+              username: username,
+              password: password,
+            }
+          )
             .then((response) => {
               console.log(response.data);
             })
@@ -131,6 +136,11 @@ function AddUser() {
     document.getElementById("clientFNErr").style.display = "none";
     document.getElementById("inputImageErr").style.display = "none";
   };
+  const navigate = useNavigate();
+  const back = () => {
+    navigate("/UserManagement");
+    window.location.reload();
+  };
   return (
     <div>
       <ClinicianNav />
@@ -145,7 +155,7 @@ function AddUser() {
           <center>
             <img
               className="mb-3"
-              src={window.location.origin + "/trash.svg"}
+              src={window.location.origin + "/yehey2.svg"}
               alt="trash"
               style={{
                 width: "200px",
@@ -186,8 +196,7 @@ function AddUser() {
                 <Form.Group className="back-cont">
                   <Form.Label
                     className="text-right mb-2 um-back-btn"
-                    as={Link}
-                    to={"/UserManagement"}
+                    onClick={back}
                     style={{
                       color: "black",
                       textDecoration: "none",

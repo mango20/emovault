@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   faAngleDoubleLeft,
   faLock,
@@ -11,17 +11,28 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function EmoNavbar() {
+  const navigate = useNavigate();
   const [name, setName] = useState([]);
   const [img, setImg] = useState([]);
-
+  const token = localStorage.getItem("token");
   Axios.defaults.withCredentials = true;
+  const cEmail = localStorage.getItem("user");
   useEffect(() => {
-    Axios.get("http://localhost:5001/api/users/admin").then((response) => {
+    Axios.get(`https://emovault.herokuapp.com/api/users/admin?token=${token}`, {
+      token: token,
+    }).then((response) => {
       console.log(response.data.admin.firstName);
       setName(response.data.admin.firstName);
       setImg(response.data.admin.picture);
     });
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" className="navUser">
@@ -77,7 +88,7 @@ function EmoNavbar() {
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item style={{ color: "red" }} as={Link} to={"/"}>
+                <NavDropdown.Item style={{ color: "red" }} onClick={logout}>
                   <FontAwesomeIcon
                     style={{ marginRight: "10px" }}
                     icon={faArrowRightFromBracket}
