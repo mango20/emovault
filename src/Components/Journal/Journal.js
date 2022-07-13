@@ -46,7 +46,7 @@ function Journal() {
           response.data.patient.firstName + " " + response.data.patient.lastName
         );
         console.log(response.data.patient);
-        console.log("nays");
+        
       })
       .catch((error) => {
         console.log(error);
