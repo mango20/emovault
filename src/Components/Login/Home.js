@@ -12,12 +12,7 @@ function Home() {
         className="home-logName"
         style={{ margin: "auto", textAlign: "center", fontWeight: "bold" }}
       >
-        <img
-          src={process.env.PUBLIC_URL + "/client.png"}
-          alt=""
-          id="homeImg"
-          style={{ width: "100" }}
-        />
+        <img src={process.env.PUBLIC_URL + "/client.png"} alt="" id="homeImg" />
       </div>
     </div>
   );
