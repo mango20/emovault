@@ -30,7 +30,7 @@ function UserManagement() {
   useEffect(() => {
     console.log(userEmail);
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/getpatients?token=${token}&email=${userEmail}`,
+      `https://emovault.herokuapp.com/api/users/getpatients?token=${token}&email=`,
       {
         email: userEmail,
         token: token,
