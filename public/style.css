@@ -283,6 +283,7 @@ span {
   padding: 50px;
   max-width: 500px;
   border-radius: 10px;
+  display: inline-block;
 }
 
 .home-logName {
