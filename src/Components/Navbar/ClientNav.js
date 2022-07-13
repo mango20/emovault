@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   faAngleDoubleLeft,
   faLock,
@@ -13,15 +13,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function ClientNav() {
   const [name, setName] = useState([]);
   const [img, setImg] = useState([]);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    Axios.get("http://localhost:5001/api/auth/getinfo").then((response) => {
+    Axios.get(
+      "https://emovault.herokuapp.com/api/auth/getinfo?token=${token}",
+      { token: token }
+    ).then((response) => {
       console.log(response);
       setName(response.data.user.firstName);
       setImg(response.data.user.picture);
     });
   }, []);
-
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" className="navUser">
@@ -77,7 +86,7 @@ function ClientNav() {
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item style={{ color: "red" }} as={Link} to={"/"}>
+                <NavDropdown.Item style={{ color: "red" }} onClick={logout}>
                   <FontAwesomeIcon
                     style={{ marginRight: "10px" }}
                     icon={faArrowRightFromBracket}
