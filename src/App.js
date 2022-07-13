@@ -1,8 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+const ClinicianNav = React.lazy(() =>
+  import("./Components/Navbar/ClinicianNav")
+);
 const LazyProfile = React.lazy(() => import("./Components/Profile/Profile"));
+const AdminProfile = React.lazy(() =>
+  import("./Components/Profile/AdminProfile")
+);
 const Login = React.lazy(() => import("./Components/Login/Login"));
+const Home = React.lazy(() => import("./Components/Login/Home"));
 const EmovaultForm = React.lazy(() =>
   import("./Components/EmovaultForm/EmovaultForm")
 );
@@ -12,6 +19,9 @@ const ChangePassword = React.lazy(() =>
 
 const ClinicanChangePassword = React.lazy(() =>
   import("./Components/ChangePassword/ClinicianChangePassword")
+);
+const AdminChangePassword = React.lazy(() =>
+  import("./Components/ChangePassword/AdminChangePassword")
 );
 const ClinicianClients = React.lazy(() =>
   import("./Components/ClinicianClients/ClinicianClients")
@@ -45,17 +55,27 @@ const ClinicianProfile_ = React.lazy(() =>
   import("./Components/Profile/ClinicianProfile_")
 );
 const Navbar = React.lazy(() => import("./Components/Navbar/EmoNavbar"));
+const ClientNav = React.lazy(() => import("./Components/Navbar/ClientNav"));
 const DatePick = React.lazy(() => import("./Components/DatePick/DatePick"));
 function App() {
   return (
     <Router>
       <Routes>
         <Route
-          path="/"
+          path="/Login"
           exact
           element={
             <React.Suspense fallback="Loading Emovault...">
               <Login />
+            </React.Suspense>
+          }
+        ></Route>
+        <Route
+          path="/"
+          exact
+          element={
+            <React.Suspense fallback="Loading Emovault...">
+              <Home />
             </React.Suspense>
           }
         ></Route>
@@ -65,6 +85,24 @@ function App() {
           element={
             <React.Suspense fallback="Loading Emovault...">
               <ClinicianProfile />
+            </React.Suspense>
+          }
+        ></Route>
+        <Route
+          path="/AdminProfile"
+          exact
+          element={
+            <React.Suspense fallback="Loading Emovault...">
+              <AdminProfile />
+            </React.Suspense>
+          }
+        ></Route>
+        <Route
+          path="/AdminChangePassword"
+          exact
+          element={
+            <React.Suspense fallback="Loading Emovault...">
+              <AdminChangePassword />
             </React.Suspense>
           }
         ></Route>
@@ -83,6 +121,24 @@ function App() {
           element={
             <React.Suspense fallback="Loading Emovault...">
               <ClinicanChangePassword />
+            </React.Suspense>
+          }
+        ></Route>
+        <Route
+          path="/ClinicanChangePassword"
+          exact
+          element={
+            <React.Suspense fallback="Loading Emovault...">
+              <ClientNav />
+            </React.Suspense>
+          }
+        ></Route>
+        <Route
+          path="/ClinicanChangePassword"
+          exact
+          element={
+            <React.Suspense fallback="Loading Emovault...">
+              <ClinicianNav />
             </React.Suspense>
           }
         ></Route>
