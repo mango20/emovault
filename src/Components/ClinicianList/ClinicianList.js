@@ -23,7 +23,7 @@ import Moment from "react-moment";
 
 function ClinicianList() {
   Axios.defaults.withCredentials = true;
-  const [clinicianList, setClinicianList] = useState([]);
+  const [clinicianList_, setClinicianList] = useState([]);
   const token = localStorage.getItem("token");
   const cEmail = localStorage.getItem("user");
   useEffect(() => {
@@ -66,7 +66,7 @@ function ClinicianList() {
       txtValue2;
     input = document.getElementById("searchinput");
     filter = input.value.toUpperCase();
-    table = document.getElementById("clinicianList");
+    table = document.getElementById("clinicianListTable");
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[1];
@@ -142,7 +142,11 @@ function ClinicianList() {
               </Button>
             </Col>
           </Row>
-          <Table className="text-center" responsive="sm" id="clinicianList">
+          <Table
+            className="text-center"
+            responsive="sm"
+            id="clinicianListTable"
+          >
             <thead>
               <tr>
                 <th>Image</th>
@@ -178,7 +182,7 @@ function ClinicianList() {
               </tr>
             </thead>
             <tbody>
-              {clinicianList.map((val, key) => {
+              {clinicianList_.map((val, key) => {
                 return (
                   <tr key={key}>
                     <td className="align-middle">
