@@ -10,6 +10,7 @@ function Home() {
     <div className="home-bg">
       <div
         className="home-logName"
+        id="bg"
         style={{ margin: "auto", textAlign: "center", fontWeight: "bold" }}
       >
         <img src={process.env.PUBLIC_URL + "/client.png"} alt="" id="homeImg" />
