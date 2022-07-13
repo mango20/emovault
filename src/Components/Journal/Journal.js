@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Form, Row, Table } from "react-bootstrap";
 import ClinicianNav from "../Navbar/ClinicianNav";
 import Axios from "axios";
-import Moment from "react-moment";
+import moment from "moment";
 import { Link } from "react-router-dom";
 function Journal() {
   Axios.defaults.withCredentials = true;
@@ -46,7 +46,6 @@ function Journal() {
           response.data.patient.firstName + " " + response.data.patient.lastName
         );
         console.log(response.data.patient);
-        
       })
       .catch((error) => {
         console.log(error);
@@ -247,9 +246,7 @@ function Journal() {
                 {healthHabit.map((val, key) => {
                   return (
                     <tr key={key}>
-                      <td>
-                        <Moment format="MM/DD/YYYY">{val.date}</Moment>
-                      </td>
+                      <td>{moment(val.date).format("MM/DD/YYYY")}</td>
                       <td>{val.question}</td>
                       <td>{val.answer}</td>
                     </tr>

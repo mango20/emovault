@@ -19,7 +19,7 @@ import {
 import EmoNavbar from "../Navbar/EmoNavbar";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-// import Moment from "react-moment";
+import moment from "moment";
 
 function ClinicianList() {
   Axios.defaults.withCredentials = true;
@@ -194,9 +194,9 @@ function ClinicianList() {
                     <td className="align-middle">{val.firstName}</td>
                     <td className="align-middle">{val.lastName}</td>
                     <td className="align-middle">{val.yearsInPractice}</td>
-                    {/* <td className="align-middle">
-                      <Moment format="MM/DD/YYYY">{val.dateAdded}</Moment>
-                    </td> */}
+                    <td className="align-middle">
+                      {moment(val.dateAdded).format("MM/DD/YYYY")}
+                    </td>
                     <td className="align-middle">
                       <Button
                         as={Link}
