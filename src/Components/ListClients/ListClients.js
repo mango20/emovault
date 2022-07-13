@@ -21,7 +21,6 @@ import {
 } from "react-bootstrap";
 import { Link, useLocation, useParams } from "react-router-dom";
 import EmoNavbar from "../Navbar/EmoNavbar";
-import Moment from "react-moment";
 import moment from "moment";
 
 function ListClients() {
@@ -224,7 +223,6 @@ function ListClients() {
                     <td className="align-middle">{val.lastName}</td>
                     <td className="align-middle">{val.username}</td>
                     <td className="align-middle">
-                      {/* <Moment format="MM/DD/YYYY">{val.dateAdded}</Moment> */}
                       {moment(val.dateAdded).format("MM/DD/YYYY")}
                     </td>
                   </tr>
