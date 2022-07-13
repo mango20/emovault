@@ -28,7 +28,7 @@ function ClinicianList() {
   const cEmail = localStorage.getItem("user");
   useEffect(() => {
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/getclinicians?token=${token}&email=${cEmail}`,
+      `https://emovault.herokuapp.com/api/users/getclinicians?token=${token}`,
       {
         token: token,
       }
