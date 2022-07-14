@@ -90,6 +90,8 @@ function Journal() {
     navigate("/ClinicianClients");
     window.location.reload();
   };
+  
+
   return (
     <>
       <ClinicianNav />

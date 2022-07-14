@@ -14,6 +14,7 @@ import {
   FormControl,
   Table,
 } from "react-bootstrap";
+import { saveAs } from "file-saver";
 import ClinicianNav from "../Navbar/ClinicianNav";
 import { Link } from "react-router-dom";
 import Axios from "axios";
@@ -173,6 +174,35 @@ function ClinicianClients() {
       }
     }
   };
+
+  const exportPDF = (email) => {
+    Axios.post(
+      `https://emovault.herokuapp.com/api/export/pdf/patient?token=${token}`,
+      {
+        email: email,
+        token: token,
+      }
+    ).then((response) => {
+      console.log(response);
+      saveAs(response.data.file, email + ".pdf");
+    });
+  };
+  const exportExcel = (email) => {
+    Axios.post(
+      `https://emovault.herokuapp.com/api/export/excel/patient?token=${token}`,
+      {
+        email: email,
+        token: token,
+      }
+    ).then((response) => {
+      console.log(response);
+      window.open(response.data.file);
+    });
+  };
+
+  const winprint = () => {
+    window.print();
+  };
   return (
     <>
       <ClinicianNav />
@@ -286,7 +316,7 @@ function ClinicianClients() {
                         //   );
                         // }
                         onClick={() => {
-                          getData(val.email);
+                          exportPDF(val.email);
                         }}
                       >
                         PDF
@@ -300,6 +330,9 @@ function ClinicianClients() {
                           width: "100px",
                           outline: "none",
                           boxShadow: "none",
+                        }}
+                        onClick={() => {
+                          exportExcel(val.email);
                         }}
                         className="tableBtn-excel"
                       >
@@ -316,6 +349,7 @@ function ClinicianClients() {
                           boxShadow: "none",
                         }}
                         className="tableBtn-print"
+                        onClick={winprint}
                       >
                         PRINT
                       </Button>
