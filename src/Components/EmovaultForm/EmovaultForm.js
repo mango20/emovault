@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import ClientNav from "../Navbar/ClientNav";
 import Axios from "axios";
-import Moment from "react-moment";
+
 import { useNavigate } from "react-router-dom";
 
 import moment from "moment";
@@ -462,7 +462,7 @@ function EmovaultForm() {
                         width: "100%",
                       }}
                     >
-                      {moment(datePick_date).format("MM/DD/YYYY")}
+                      {/* {moment(datePick_date).format("MM/DD/YYYY")} */}
                     </Form.Label>
                   </Form.Group>
                 </Col>
@@ -810,7 +810,7 @@ function EmovaultForm() {
                     width: "100%",
                   }}
                 >
-                  {moment(datePick_date).format("MM/DD/YYYY")}
+                  {/* {moment(datePick_date).format("MM/DD/YYYY")} */}
                 </Form.Label>
               </Form.Group>
             </Form.Group>
