@@ -19,13 +19,14 @@ function Profile() {
   const [imgurl, setimgurl] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   console.log(cemail);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     Axios.defaults.withCredentials = true;
     Axios.get(
-      `http://localhost:5001/api/users/patient?email=${cemail}`,
+      `https://emovault.herokuapp.com/api/users/patient?token=${token}&email=${cemail}`,
 
-      { email: cemail }
+      { email: cemail, token: token }
     )
       .then((response) => {
         setclientFirstName(response.data.patient.firstName);
