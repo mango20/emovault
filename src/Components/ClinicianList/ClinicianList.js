@@ -89,6 +89,17 @@ function ClinicianList() {
     }
   };
 
+  const exportPDF = (email) => {
+    Axios.post(
+      `https://emovault.herokuapp.com/api/export/pdf/clinician?token=${token}&email=${email}`,
+      {
+        email: email,
+        token: token,
+      }
+    ).then((response) => {
+      console.log(response);
+    });
+  };
   return (
     <div>
       <EmoNavbar />
@@ -227,6 +238,9 @@ function ClinicianList() {
                           boxShadow: "none",
                         }}
                         className="tableBtn-pdf"
+                        onClick={() => {
+                          exportPDF(val.email);
+                        }}
                       >
                         PDF
                       </Button>
