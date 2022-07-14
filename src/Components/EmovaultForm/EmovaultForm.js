@@ -33,6 +33,8 @@ function EmovaultForm() {
   const [patientSocialEngagement, setpatientSocialEngagement] = useState("");
   const [patientAlone, setpatientAlone] = useState(false);
   const token = localStorage.getItem("token");
+  var dateTime = moment(datePick_date).format("MM/DD/YYYY");
+  const [showDate, setShowDate] = useState(dateTime);
   useEffect(() => {
     Axios.get(
       `https://emovault.herokuapp.com/api/tracker/questionoftheday?token=${token}`,
@@ -462,7 +464,7 @@ function EmovaultForm() {
                         width: "100%",
                       }}
                     >
-                      {/* {moment(datePick_date).format("MM/DD/YYYY")} */}
+                      {showDate}
                     </Form.Label>
                   </Form.Group>
                 </Col>
