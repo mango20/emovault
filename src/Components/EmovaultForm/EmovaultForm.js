@@ -463,6 +463,7 @@ function EmovaultForm() {
                         padding: "5px 0px 0px 0px",
                         width: "100%",
                       }}
+                      id="date-dt"
                     >
                       {showDate}
                     </Form.Label>
@@ -811,6 +812,7 @@ function EmovaultForm() {
                     padding: "5px 0px 0px 0px",
                     width: "100%",
                   }}
+                  id="date-dt"
                 >
                   {showDate}
                 </Form.Label>
