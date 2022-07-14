@@ -10,7 +10,8 @@ function AdminChangePassword() {
   const [isVisible, setIsVisible] = useState(false);
   const [olduserpassword, setolduserpassword] = useState("");
   const [newuserpassword, setnewuserpassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const token = localStorage.getItem("token");
   const changePass = () => {
     const email = localStorage.getItem("user");
     console.log(email);
@@ -54,20 +55,21 @@ function AdminChangePassword() {
       document.getElementById("pop-message").innerHTML =
         "Password Changed Successfully";
       setIsVisible(true);
-      //   Axios.patch(`http://localhost:5001/api/auth/AdminChangePassword`, {
-      //     email: email,
-      //     newPassword: newuserpassword,
-      //     oldPassword: olduserpassword,
-      //   })
-      //     .then((response) => {
-      //       console.log(response.data);
-      //       console.log("nays");
-      //     })
-      //     .catch((error) => {
-      //       console.log(error.response.data.message);
-      //       setErrorMsg(error.response.data.message);
-      //       document.getElementById("errorMsgCP").style.display = "block";
-      //     });
+      Axios.patch(`http://localhost:5001/api/auth/changepassword`, {
+        token: token,
+        email: email,
+        newPassword: newuserpassword,
+        oldPassword: olduserpassword,
+      })
+        .then((response) => {
+          console.log(response.data);
+          console.log("nays");
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+          setErrorMsg(error.response.data.message);
+          document.getElementById("errorMsgCP").style.display = "block";
+        });
     }
 
     console.log(confirmpass + " " + newpass);

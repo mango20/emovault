@@ -10,6 +10,7 @@ function ChangePassword() {
   const [olduserpassword, setolduserpassword] = useState("");
   const [newuserpassword, setnewuserpassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const token = localStorage.getItem("token");
   const changePass = () => {
     const email = localStorage.getItem("user");
     console.log(email);
@@ -54,6 +55,7 @@ function ChangePassword() {
         "Password Changed Successfully";
       setIsVisible(true);
       Axios.patch(`http://localhost:5001/api/auth/changepassword`, {
+        token: token,
         email: email,
         newPassword: newuserpassword,
         oldPassword: olduserpassword,

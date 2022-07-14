@@ -462,15 +462,7 @@ function EmovaultForm() {
                         width: "100%",
                       }}
                     >
-                      <Moment
-                        id="date-dt"
-                        style={{
-                          width: "100%",
-                        }}
-                        format="MM/DD/YYYY"
-                      >
-                        {datePick_date}
-                      </Moment>
+                      {moment(datePick_date).format("MM/DD/YYYY")}
                     </Form.Label>
                   </Form.Group>
                 </Col>
@@ -818,14 +810,7 @@ function EmovaultForm() {
                     width: "100%",
                   }}
                 >
-                  <Moment
-                    style={{
-                      width: "100%",
-                    }}
-                    format="MM/DD/YYYY"
-                  >
-                    {datePick_date}
-                  </Moment>
+                  {moment(datePick_date).format("MM/DD/YYYY")}
                 </Form.Label>
               </Form.Group>
             </Form.Group>

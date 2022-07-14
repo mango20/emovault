@@ -111,6 +111,7 @@ function UpdateUser() {
       Axios.patch(
         `https://emovault.herokuapp.com/api/users/patient?email=${userEmail}`,
         {
+          token: token,
           firstName: patientFirstName,
           lastName: patientLastName,
           username: patientUsername,
