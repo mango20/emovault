@@ -20,6 +20,7 @@ import EmoNavbar from "../Navbar/EmoNavbar";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import moment from "moment";
+import { saveAs } from "file-saver";
 
 function ClinicianList() {
   Axios.defaults.withCredentials = true;
@@ -91,14 +92,32 @@ function ClinicianList() {
 
   const exportPDF = (email) => {
     Axios.post(
-      `https://emovault.herokuapp.com/api/export/pdf/clinician?token=${token}&email=${email}`,
+      `https://emovault.herokuapp.com/api/export/pdf/admin?token=${token}`,
       {
         email: email,
         token: token,
       }
     ).then((response) => {
       console.log(response);
+      saveAs(response.data.file, email + ".pdf");
     });
+  };
+
+  const exportExcel = (email) => {
+    Axios.post(
+      `https://emovault.herokuapp.com/api/export/excel/admin?token=${token}`,
+      {
+        email: email,
+        token: token,
+      }
+    ).then((response) => {
+      console.log(response);
+      window.open(response.data.file);
+    });
+  };
+
+  const winprint = () => {
+    window.print();
   };
   return (
     <div>
@@ -255,6 +274,9 @@ function ClinicianList() {
                           boxShadow: "none",
                         }}
                         className="tableBtn-excel"
+                        onClick={() => {
+                          exportExcel(val.email);
+                        }}
                       >
                         Excel
                       </Button>
@@ -269,6 +291,7 @@ function ClinicianList() {
                           boxShadow: "none",
                         }}
                         className="tableBtn-print"
+                        onClick={winprint}
                       >
                         PRINT
                       </Button>

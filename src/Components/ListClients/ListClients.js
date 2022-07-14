@@ -19,6 +19,7 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
+import { saveAs } from "file-saver";
 import { Link, useLocation, useParams } from "react-router-dom";
 import EmoNavbar from "../Navbar/EmoNavbar";
 import moment from "moment";
@@ -50,6 +51,36 @@ function ListClients() {
         console.log(error);
       });
   }, []);
+
+  const exportPDF = () => {
+    Axios.post(
+      `https://emovault.herokuapp.com/api/export/pdf/clinician?token=${token}`,
+      {
+        email: cEmail,
+        token: token,
+      }
+    ).then((response) => {
+      console.log(response);
+      saveAs(response.data.file, cName + ".pdf");
+    });
+  };
+
+  const exportExcel = () => {
+    Axios.post(
+      `https://emovault.herokuapp.com/api/export/excel/clinician?token=${token}`,
+      {
+        email: cEmail,
+        token: token,
+      }
+    ).then((response) => {
+      console.log(response);
+      window.open(response.data.file);
+    });
+  };
+
+  const winprint = () => {
+    window.print();
+  };
 
   return (
     <div>
@@ -124,6 +155,7 @@ function ListClients() {
                       boxShadow: "none",
                     }}
                     className="tableBtn-pdf"
+                    onClick={exportPDF}
                   >
                     PDF
                   </Button>
@@ -137,6 +169,7 @@ function ListClients() {
                       boxShadow: "none",
                     }}
                     className="tableBtn-excel"
+                    onClick={exportExcel}
                   >
                     Excel
                   </Button>
@@ -150,6 +183,7 @@ function ListClients() {
                       boxShadow: "none",
                     }}
                     className="tableBtn-print"
+                    onClick={winprint}
                   >
                     PRINT
                   </Button>
