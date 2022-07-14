@@ -347,7 +347,15 @@ function EmovaultForm() {
           console.log(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.data.message);
+          alert(error.data.message);
+          if (
+            error.data.message ===
+            "Patient has already logged today's daily tracker"
+          ) {
+            navigate("/DatePick");
+            window.location.reload();
+          }
         });
     }
   };
@@ -379,6 +387,15 @@ function EmovaultForm() {
         })
         .catch((error) => {
           console.log(error);
+          console.log(error.data.message);
+          alert(error.data.message);
+          if (
+            error.data.message ===
+            "Patient has already logged today's health habit"
+          ) {
+            navigate("/DatePick");
+            window.location.reload();
+          }
         });
     }
   };
