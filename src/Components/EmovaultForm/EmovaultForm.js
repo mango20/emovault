@@ -302,9 +302,6 @@ function EmovaultForm() {
       document.getElementById("time2").value !== ""
     ) {
       const ttlhr = document.getElementById("totalHr").value;
-      document.getElementById("pop-message").innerHTML =
-        "You successfully submitted your daily tracker";
-      setIsVisible(true);
 
       Axios.post("https://emovault.herokuapp.com/api/tracker/dailytracker", {
         token: token,
@@ -345,12 +342,15 @@ function EmovaultForm() {
       })
         .then((response) => {
           console.log(response.data);
+          document.getElementById("pop-message").innerHTML =
+            "You successfully submitted your daily tracker";
+          setIsVisible(true);
         })
         .catch((error) => {
-          console.log(error.data.message);
-          alert(error.data.message);
+          console.log(error.response.data.message);
+          alert(error.response.data.message);
           if (
-            error.data.message ===
+            error.response.data.message ===
             "Patient has already logged today's daily tracker"
           ) {
             navigate("/DatePick");
@@ -373,9 +373,6 @@ function EmovaultForm() {
       document.getElementById("errorHHMsg").innerHTML = "Please input answer";
     }
     if (ans !== "") {
-      document.getElementById("pop-message").innerHTML =
-        "You successfully submitted your health habit";
-      setIsVisible(true);
       console.log(p);
       Axios.post("https://emovault.herokuapp.com/api/tracker/healthhabit", {
         token: token,
@@ -384,13 +381,16 @@ function EmovaultForm() {
       })
         .then((response) => {
           console.log(response);
+          document.getElementById("pop-message").innerHTML =
+            "You successfully submitted your health habit";
+          setIsVisible(true);
         })
         .catch((error) => {
           console.log(error);
-          console.log(error.data.message);
-          alert(error.data.message);
+          console.log(error.response.data.message);
+          alert(error.response.data.message);
           if (
-            error.data.message ===
+            error.response.data.message ===
             "Patient has already logged today's health habit"
           ) {
             navigate("/DatePick");

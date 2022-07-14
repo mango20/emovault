@@ -32,8 +32,8 @@ function Login() {
         }
       })
       .catch((error) => {
-        console.log(error.data.message);
-        setErrMsg(error.data.message);
+        console.log(error.response.data.message);
+        setErrMsg(error.response.data.message);
         document.getElementById("errorMsg").style.display = "block";
       });
   };
