@@ -33,8 +33,6 @@ function Login() {
       })
       .catch((error) => {
         console.log(error.response);
-        setErrMsg(error.response);
-        document.getElementById("errorMsg").style.display = "block";
       });
   };
   const up = () => {
