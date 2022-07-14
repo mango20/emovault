@@ -32,7 +32,9 @@ function Login() {
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error.data.message);
+        setErrMsg(error.data.message);
+        document.getElementById("errorMsg").style.display = "block";
       });
   };
   const up = () => {
