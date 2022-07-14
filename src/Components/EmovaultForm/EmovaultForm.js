@@ -33,7 +33,9 @@ function EmovaultForm() {
   const [patientSocialEngagement, setpatientSocialEngagement] = useState("");
   const [patientAlone, setpatientAlone] = useState(false);
   const token = localStorage.getItem("token");
-  var dateTime = moment(datePick_date).format("MM/DD/YYYY");
+  var dateTime = moment(datePick_date)
+    .format("MM/DD/YYYY")
+    .toString();
   const [showDate, setShowDate] = useState(dateTime);
   useEffect(() => {
     Axios.get(
@@ -299,6 +301,7 @@ function EmovaultForm() {
       document.getElementById("time").value !== "" &&
       document.getElementById("time2").value !== ""
     ) {
+      const ttlhr = document.getElementById("totalHr").value;
       document.getElementById("pop-message").innerHTML =
         "You successfully submitted your daily tracker";
       setIsVisible(true);
@@ -308,7 +311,7 @@ function EmovaultForm() {
         date: todayDate,
         sleepAt: patientSleepAt,
         wokeUpAt: patientWokeUpAt,
-        totalHours: patientTotalHours,
+        totalHours: ttlhr,
         moodOrFeelings: patientMoodsFeelings,
         triggers: patientTriggers,
         physicalSymptoms:
@@ -521,9 +524,6 @@ function EmovaultForm() {
                     type="text"
                     onClick={checkCheckBox}
                     id="totalHr"
-                    onChange={(event) => {
-                      setpatientTotalHours(event.target.value);
-                    }}
                     readOnly
                     style={{ background: "white" }}
                   />
