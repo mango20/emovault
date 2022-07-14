@@ -812,7 +812,7 @@ function EmovaultForm() {
                     width: "100%",
                   }}
                 >
-                  {/* {moment(datePick_date).format("MM/DD/YYYY")} */}
+                  {showDate}
                 </Form.Label>
               </Form.Group>
             </Form.Group>
