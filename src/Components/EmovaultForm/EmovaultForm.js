@@ -302,7 +302,7 @@ function EmovaultForm() {
       document.getElementById("time2").value !== ""
     ) {
       const ttlhr = document.getElementById("totalHr").value;
-
+      const pl = document.getElementById("social").value;
       Axios.post("https://emovault.herokuapp.com/api/tracker/dailytracker", {
         token: token,
         date: todayDate,
@@ -337,7 +337,7 @@ function EmovaultForm() {
           psstrong,
         others: formOther,
         concentrationOrFocus: focusRange,
-        socialEngagement: patientSocialEngagement,
+        socialEngagement: pl,
         preferredToBeAloneToday: patientAlone,
       })
         .then((response) => {
@@ -366,6 +366,7 @@ function EmovaultForm() {
   const submitHh = () => {
     // date value
     // const p = document.getElementById("date-dt").innerHTML; errorHHMsg
+    const todayDate = document.getElementById("date-dt").innerHTML;
     const ans = document.getElementById("ans").value;
     const p = document.getElementById("qotd").innerHTML;
     if (ans === "") {
@@ -376,6 +377,7 @@ function EmovaultForm() {
       console.log(p);
       Axios.post("https://emovault.herokuapp.com/api/tracker/healthhabit", {
         token: token,
+        searchDate: todayDate,
         question: p,
         answer: psquestion,
       })
@@ -760,9 +762,6 @@ function EmovaultForm() {
                     id="social"
                     readOnly={preferAlone}
                     onClick={checkCheckBox}
-                    onChange={(event) => {
-                      setpatientSocialEngagement(event.target.value);
-                    }}
                   />
 
                   <Col>
