@@ -23,12 +23,15 @@ function ClinicianProfile() {
   const [cert3, setCert3] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   console.log(cemail);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    Axios.defaults.withCredentials = true;
-    Axios.get(`http://localhost:5001/api/users/clinician?email=${cemail}`, {
-      email: cemail,
-    })
+    Axios.get(
+      `https://emovault.herokuapp.com/api/users/clinician?token=${token}&email=${cemail}`,
+      {
+        email: cemail,
+        token: token,
+      }
+    )
       .then((response) => {
         setclientFirstName(response.data.clinician.firstName);
         setClientLastName(response.data.clinician.lastName);
@@ -113,19 +116,23 @@ function ClinicianProfile() {
 
       Axios.defaults.withCredentials = true;
 
-      Axios.patch(`http://localhost:5001/api/users/clinician?email=${cemail}`, {
-        firstName: clientFirstName,
-        lastName: clientLastName,
-        email: clientEmail,
-        contactNo: clientContactNo,
-        picture: prevImage,
-        username: clientUsername,
-        password: clientPass,
-        yearsInPractice: yearsInPractice,
-        license: licenseNo,
-        currentEmail: cemail,
-        certificates: cert1 + ", " + cert2 + ", " + cert3,
-      })
+      Axios.patch(
+        `https://emovault.herokuapp.com/api/users/clinician?email=${cemail}`,
+        {
+          token: token,
+          firstName: clientFirstName,
+          lastName: clientLastName,
+          email: clientEmail,
+          contactNo: clientContactNo,
+          picture: prevImage,
+          username: clientUsername,
+          password: clientPass,
+          yearsInPractice: yearsInPractice,
+          license: licenseNo,
+          currentEmail: cemail,
+          certificates: cert1 + ", " + cert2 + ", " + cert3,
+        }
+      )
         .then((response) => {
           setimgurl(response.data.clinician.picture);
           console.log(response.data);
@@ -167,8 +174,9 @@ function ClinicianProfile() {
         Axios.defaults.withCredentials = true;
 
         Axios.patch(
-          `http://localhost:5001/api/users/clinician?email=${cemail}`,
+          `https://emovault.herokuapp.com/api/users/clinician?email=${cemail}`,
           {
+            token: token,
             firstName: clientFirstName,
             lastName: clientLastName,
             email: clientEmail,
@@ -303,7 +311,7 @@ function ClinicianProfile() {
           <center>
             <img
               className="mb-3"
-              src={window.location.origin + "/yehey2.svg"}
+              src={window.location.origin + "/clinicianHappy.svg"}
               alt="trash"
               style={{ width: 200, align: "center" }}
             />

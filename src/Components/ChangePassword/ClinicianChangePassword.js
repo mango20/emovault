@@ -13,12 +13,14 @@ function ClinicanChangePassword() {
   const [errorMsg, setErrorMsg] = useState("");
   const changePass = () => {
     const email = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
     console.log(email);
     const newpass = document.getElementById("newpass").value;
     const oldpass = document.getElementById("oldpass").value;
     const confirmpass = document.getElementById("confirmpass").value;
 
-    Axios.patch(`http://localhost:5001/api/auth/changepassword`, {
+    Axios.patch(`https://emovault.herokuapp.com/api/auth/changepassword`, {
+      token: token,
       email: email,
       newPassword: newuserpassword,
       oldPassword: olduserpassword,
@@ -42,7 +44,8 @@ function ClinicanChangePassword() {
     document.getElementById("errorMsgCP").style.display = "none";
   };
   const back = () => {
-    navigate("/DatePick");
+    navigate("/ClinicianClients");
+    window.location.reload();
   };
   return (
     <div>
@@ -136,7 +139,7 @@ function ClinicanChangePassword() {
                   id="changepass-change-btn"
                   style={{
                     color: "black",
-                    background: "var(--green)",
+                    background: "var(--vio)",
                     border: "none",
                   }}
                   onClick={changePass}
@@ -151,7 +154,7 @@ function ClinicanChangePassword() {
                     color: "black",
                     borderWidth: "3px",
 
-                    borderColor: "var(--green)",
+                    borderColor: "var(--vio)",
                   }}
                 >
                   Cancel
@@ -162,7 +165,7 @@ function ClinicanChangePassword() {
               <center>
                 <img
                   className="passwordImage"
-                  src={process.env.PUBLIC_URL + "/password.svg"}
+                  src={process.env.PUBLIC_URL + "/passClinician.svg"}
                 />
               </center>
             </div>

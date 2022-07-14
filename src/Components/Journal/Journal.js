@@ -8,8 +8,9 @@ import { Col, Form, Row, Table } from "react-bootstrap";
 import ClinicianNav from "../Navbar/ClinicianNav";
 import Axios from "axios";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Journal() {
+  const navigate = useNavigate();
   Axios.defaults.withCredentials = true;
   const getPatientEmail = localStorage.getItem("Client");
   const showHealthHabit = () => {
@@ -32,12 +33,12 @@ function Journal() {
   const [patientInfo, setpatientInfo] = useState("");
   const [patientName, setpatientName] = useState("");
   const [patientEmail, setpatientEmail] = useState("");
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     console.log(getPatientEmail);
     Axios.get(
-      `http://localhost:5001/api/users/patient?email=${getPatientEmail}`,
-      { email: getPatientEmail }
+      `https://emovault.herokuapp.com/api/users/patient?token=${token}&email=${getPatientEmail}`,
+      { email: getPatientEmail, token: token }
     )
       .then((response) => {
         setpatientInfo(response.data.patient.picture);
@@ -56,8 +57,8 @@ function Journal() {
   useEffect(() => {
     console.log(getPatientEmail);
     Axios.get(
-      `http://localhost:5001/api/tracker/dailytracker?email=${getPatientEmail}`,
-      { email: getPatientEmail }
+      `https://emovault.herokuapp.com/api/tracker/dailytracker?token=${token}&email=${getPatientEmail}`,
+      { email: getPatientEmail, token: token }
     )
       .then((response) => {
         setTracker(response.data.dailyTrackers);
@@ -73,8 +74,8 @@ function Journal() {
   useEffect(() => {
     console.log(getPatientEmail);
     Axios.get(
-      `http://localhost:5001/api/tracker/healthhabit?email=${getPatientEmail}`,
-      { email: getPatientEmail }
+      `https://emovault.herokuapp.com/api/tracker/healthhabit?token=${token}&email=${getPatientEmail}`,
+      { email: getPatientEmail, token: token }
     )
       .then((response) => {
         sethealthHabit(response.data.healthHabits);
@@ -85,7 +86,10 @@ function Journal() {
         console.log(error);
       });
   }, []);
-
+  const back = () => {
+    navigate("/ClinicianClients");
+    window.location.reload();
+  };
   return (
     <>
       <ClinicianNav />
@@ -94,9 +98,9 @@ function Journal() {
           <Form.Group className="journal-back-cont">
             <Form.Label
               className="text-right mb-5 journal-back-btn"
-              as={Link}
-              to={"/ClinicianClients"}
+              onClick={back}
               id="backDT"
+              style={{ color: "black", border: "none", padding: "1%" }}
             >
               <FontAwesomeIcon
                 id="left-arrow"

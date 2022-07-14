@@ -32,14 +32,17 @@ function EmovaultForm() {
   const [patientConcentration, setpatientConcentration] = useState("");
   const [patientSocialEngagement, setpatientSocialEngagement] = useState("");
   const [patientAlone, setpatientAlone] = useState(false);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    Axios.get("http://localhost:5001/api/tracker/questionoftheday").then(
-      (response) => {
-        setquestionoftheday(response.data.question);
-        console.log(response.data);
+    Axios.get(
+      `https://emovault.herokuapp.com/api/tracker/questionoftheday?token=${token}`,
+      {
+        token: token,
       }
-    );
+    ).then((response) => {
+      setquestionoftheday(response.data.question);
+      console.log(response.data);
+    });
   }, []);
 
   const [psquestion, setpsquestion] = useState("");
@@ -298,7 +301,8 @@ function EmovaultForm() {
         "You successfully submitted your daily tracker";
       setIsVisible(true);
 
-      Axios.post("http://localhost:5001/api/tracker/dailytracker", {
+      Axios.post("https://emovault.herokuapp.com/api/tracker/dailytracker", {
+        token: token,
         date: todayDate,
         sleepAt: patientSleepAt,
         wokeUpAt: patientWokeUpAt,
@@ -360,7 +364,8 @@ function EmovaultForm() {
         "You successfully submitted your health habit";
       setIsVisible(true);
       console.log(p);
-      Axios.post("http://localhost:5001/api/tracker/healthhabit", {
+      Axios.post("https://emovault.herokuapp.com/api/tracker/healthhabit", {
+        token: token,
         question: p,
         answer: psquestion,
       })
@@ -405,8 +410,9 @@ function EmovaultForm() {
             <Button
               style={{
                 width: "100%",
-                background: "var(--dvio)",
-                borderColor: "var(--dvio)",
+                background: "var(--green)",
+                borderColor: "var(--green)",
+                color: "black",
                 outline: "none",
                 boxShadow: "none",
               }}

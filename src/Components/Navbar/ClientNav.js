@@ -16,7 +16,7 @@ function ClientNav() {
   const token = localStorage.getItem("token");
   useEffect(() => {
     Axios.get(
-      "https://emovault.herokuapp.com/api/auth/getinfo?token=${token}",
+      `https://emovault.herokuapp.com/api/auth/getinfo?token=${token}`,
       { token: token }
     ).then((response) => {
       console.log(response);

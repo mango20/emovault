@@ -7,11 +7,15 @@ function DatePick() {
   Axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
+  const [date2, setDate2] = useState(new Date(new Date().setHours(0, 0, 0, 0)));
 
   const onChange = (date) => {
-    setDate(date);
-    localStorage.setItem("Date", date);
-    navigate("/EmovaultForm");
+    console.log(date2);
+    if (date.toString() === date2.toString()) {
+      setDate(date);
+      localStorage.setItem("Date", date);
+      navigate("/EmovaultForm");
+    }
   };
   return (
     <div>

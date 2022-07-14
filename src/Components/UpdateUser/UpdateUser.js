@@ -47,55 +47,154 @@ function UpdateUser() {
   }, []);
 
   const updatePatient = () => {
-    //setIsVisible(true);
-    Axios.defaults.withCredentials = false;
-    const formData = new FormData();
-    formData.append("file", patientPic);
-    formData.append("upload_preset", "emovaultClient");
-    console.log(patientPic);
-    Axios.post(
-      "https://api.cloudinary.com/v1_1/dlvt2lnkh/image/upload",
+    //input value
+    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const contact = document.getElementById("contact").value;
+    const lastN = document.getElementById("lastN").value;
+    const firstN = document.getElementById("firstN").value;
 
-      formData
-    )
-      .then((response) => {
-        console.log(response);
-        console.log(response.data.secure_url);
-        setimgurl(response.data.secure_url);
-        Axios.defaults.withCredentials = true;
-        Axios.patch(
-          `https://emovault.herokuapp.com/api/users/patient?email=${userEmail}`,
-          {
-            firstName: patientFirstName,
-            lastName: patientLastName,
-            username: patientUsername,
-            picture: response.data.secure_url,
-            password: patientPass,
-            currentEmail: userEmail,
-            email: patientEmail,
-            contactNo: patientContactNo,
-          }
-        )
-          .then((response) => {
-            console.log(response.data);
-            console.log("nays");
-            Axios.get(
-              `https://emovault.herokuapp.com/api/users/patient?token=${token}`,
-              {
-                email: userEmail,
-                token: token,
-              }
-            ).then((response) => {
+    //regex
+    const nameRegex = /^([a-zA-Z\s\.]{1,50})$/;
+    const usernameRegex = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._!-]+(?<![_.])$/;
+    const numberRegex = /^([0-9]{11})$/;
+    const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    const emailRegex = /^[\w-\._0-9]+@([\w-]+\.)+[\w-]{2,50}$/;
+
+    if (!nameRegex.test(firstN) || !nameRegex.test(firstN)) {
+      document.getElementById("clientfn").style.display = "block";
+      document.getElementById("firstN").style.borderColor = "red";
+    }
+
+    if (!nameRegex.test(lastN) || !nameRegex.test(lastN)) {
+      document.getElementById("clientln").style.display = "block";
+      document.getElementById("lastN").style.borderColor = "red";
+    }
+    if (!usernameRegex.test(username)) {
+      document.getElementById("clientUsername").style.display = "block";
+      document.getElementById("username").style.borderColor = "red";
+    }
+    if (!numberRegex.test(contact)) {
+      document.getElementById("clientCN").style.display = "block";
+      document.getElementById("contact").style.borderColor = "red";
+    }
+
+    if (!passRegex.test(password)) {
+      document.getElementById("clientPass").style.display = "block";
+      document.getElementById("password").style.borderColor = "red";
+    }
+
+    if (!emailRegex.test(email)) {
+      document.getElementById("clientEmail").style.display = "block";
+      document.getElementById("email").style.borderColor = "red";
+    }
+
+    const prevImage = document.getElementById("img").src;
+
+    if (
+      document.getElementById("inputImage").files.length === 0 &&
+      password !== "" &&
+      username !== "" &&
+      email !== "" &&
+      contact !== "" &&
+      lastN !== "" &&
+      firstN !== "" &&
+      nameRegex.test(lastN) &&
+      nameRegex.test(firstN) &&
+      numberRegex.test(contact) &&
+      usernameRegex.test(username) &&
+      passRegex.test(password) &&
+      emailRegex.test(email)
+    ) {
+      setIsVisible(true);
+      Axios.patch(
+        `https://emovault.herokuapp.com/api/users/patient?email=${userEmail}`,
+        {
+          firstName: patientFirstName,
+          lastName: patientLastName,
+          username: patientUsername,
+          picture: prevImage,
+          password: patientPass,
+          currentEmail: userEmail,
+          email: patientEmail,
+          contactNo: patientContactNo,
+        }
+      )
+        .then((response) => {
+          console.log(response.data);
+          console.log("nays");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    //setIsVisible(true);
+
+    if (
+      document.getElementById("inputImage").files.length === 1 &&
+      password !== "" &&
+      username !== "" &&
+      email !== "" &&
+      contact !== "" &&
+      lastN !== "" &&
+      firstN !== "" &&
+      nameRegex.test(lastN) &&
+      nameRegex.test(firstN) &&
+      numberRegex.test(contact) &&
+      usernameRegex.test(username) &&
+      passRegex.test(password) &&
+      emailRegex.test(email)
+    ) {
+      setIsVisible(true);
+      const formData = new FormData();
+      formData.append("file", patientPic);
+      formData.append("upload_preset", "emovaultClient");
+      console.log(patientPic);
+      Axios.post(
+        "https://api.cloudinary.com/v1_1/dlvt2lnkh/image/upload",
+
+        formData
+      )
+        .then((response) => {
+          console.log(response);
+          console.log(response.data.secure_url);
+          setimgurl(response.data.secure_url);
+          Axios.defaults.withCredentials = true;
+          Axios.patch(
+            `https://emovault.herokuapp.com/api/users/patient?email=${userEmail}`,
+            {
+              firstName: patientFirstName,
+              lastName: patientLastName,
+              username: patientUsername,
+              picture: response.data.secure_url,
+              password: patientPass,
+              currentEmail: userEmail,
+              email: patientEmail,
+              contactNo: patientContactNo,
+            }
+          )
+            .then((response) => {
               console.log(response.data);
+              console.log("nays");
+              Axios.get(
+                `https://emovault.herokuapp.com/api/users/patient?token=${token}`,
+                {
+                  email: userEmail,
+                  token: token,
+                }
+              ).then((response) => {
+                console.log(response.data);
+              });
+            })
+            .catch((error) => {
+              console.log(error);
             });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   const navigate = useNavigate();
@@ -192,6 +291,7 @@ function UpdateUser() {
               <Col style={{ margin: "auto" }}>
                 <Form.Control
                   type="file"
+                  id="inputImage"
                   onChange={(e) => {
                     setpatientPic(e.target.files[0]);
                   }}
@@ -207,21 +307,45 @@ function UpdateUser() {
                       <Form.Label>First Name</Form.Label>
                       <Form.Control
                         type="text"
+                        id="firstN"
                         value={patientFirstName}
                         onChange={(e) => {
                           setpatientFirstName(e.target.value);
                         }}
                       />
+                      <Form.Label
+                        className="mt-2"
+                        id="clientfn"
+                        style={{
+                          color: "red",
+                          fontWeight: "bold",
+                          display: "none",
+                        }}
+                      >
+                        First Name must contain letters only
+                      </Form.Label>
                     </Col>
                     <Col>
                       <Form.Label>Last Name</Form.Label>
                       <Form.Control
                         type="text"
+                        id="lastN"
                         value={patientLastName}
                         onChange={(e) => {
                           setpatientLastName(e.target.value);
                         }}
                       />
+                      <Form.Label
+                        className="mt-2"
+                        id="clientln"
+                        style={{
+                          color: "red",
+                          fontWeight: "bold",
+                          display: "none",
+                        }}
+                      >
+                        Last Name must contain letters only
+                      </Form.Label>
                     </Col>
                   </Row>
 
@@ -231,16 +355,29 @@ function UpdateUser() {
                       <Form.Label>Contact Number</Form.Label>
                       <Form.Control
                         type="tel"
+                        id="contact"
                         value={patientContactNo}
                         onChange={(e) => {
                           setpatientContactNo(e.target.value);
                         }}
                       />
+                      <Form.Label
+                        className="mt-2"
+                        id="clientCN"
+                        style={{
+                          color: "red",
+                          fontWeight: "bold",
+                          display: "none",
+                        }}
+                      >
+                        Contact Number must contain numbers only
+                      </Form.Label>
                     </Col>
                     <Col>
                       <Form.Label>Email</Form.Label>
                       <Form.Control
                         type="email"
+                        id="email"
                         value={patientEmail}
                         onChange={(e) => {
                           setpatientEmail(e.target.value);
@@ -257,21 +394,47 @@ function UpdateUser() {
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     type="text"
+                    id="username"
                     value={patientUsername}
                     onChange={(e) => {
                       setpatientUsername(e.target.value);
                     }}
-                  />
+                  />{" "}
+                  <Form.Label
+                    className="mt-2"
+                    id="clientUsername"
+                    style={{
+                      color: "red",
+                      fontWeight: "bold",
+                      display: "none",
+                    }}
+                  >
+                    Please enter valid username (minimum of 8)
+                  </Form.Label>
                 </Col>
                 <Col>
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
+                    id="password"
                     placeholder="****"
                     onChange={(e) => {
                       setpatientPass(e.target.value);
                     }}
                   />
+                  <Form.Label
+                    className="mt-2"
+                    id="clientPass"
+                    style={{
+                      color: "red",
+                      fontWeight: "bold",
+                      display: "none",
+                    }}
+                  >
+                    Password should have 8-10 characters, at least one uppercase
+                    letter, one lowercase letter, one number and one special
+                    character
+                  </Form.Label>
                 </Col>
               </Row>
               <Button
