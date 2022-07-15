@@ -24,7 +24,7 @@ function UpdateUser() {
   useEffect(() => {
     Axios.defaults.withCredentials = true;
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/patient?token=${token}&email=${userEmail}`,
+      `/api/users/patient?token=${token}&email=${userEmail}`,
       {
         email: userEmail,
         token: token,
@@ -109,7 +109,7 @@ function UpdateUser() {
     ) {
       setIsVisible(true);
       Axios.patch(
-        `https://emovault.herokuapp.com/api/users/patient?email=${userEmail}`,
+        `/api/users/patient?email=${userEmail}`,
         {
           token: token,
           firstName: patientFirstName,
@@ -163,7 +163,7 @@ function UpdateUser() {
           setimgurl(response.data.secure_url);
           Axios.defaults.withCredentials = true;
           Axios.patch(
-            `https://emovault.herokuapp.com/api/users/patient?email=${userEmail}`,
+            `/api/users/patient?email=${userEmail}`,
             {
               firstName: patientFirstName,
               lastName: patientLastName,
@@ -179,7 +179,7 @@ function UpdateUser() {
               console.log(response.data);
               console.log("nays");
               Axios.get(
-                `https://emovault.herokuapp.com/api/users/patient?token=${token}`,
+                `/api/users/patient?token=${token}`,
                 {
                   email: userEmail,
                   token: token,

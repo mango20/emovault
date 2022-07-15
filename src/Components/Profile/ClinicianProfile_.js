@@ -20,7 +20,7 @@ function ClinicianProfile_() {
   console.log(cemail);
 
   useEffect(() => {
-    Axios.get(`http://localhost:5001/api/users/clinician?email=${cemail}`, {
+    Axios.get(`/api/users/clinician?email=${cemail}`, {
       email: cemail,
     })
       .then((response) => {
@@ -121,7 +121,7 @@ function ClinicianProfile_() {
       passRegex.test(password)
     ) {
       setIsVisible(true);
-      Axios.patch(`http://localhost:5001/api/users/patient?email=${cemail}`, {
+      Axios.patch(`/api/users/patient?email=${cemail}`, {
         firstName: clientFirstName,
         lastName: clientLastName,
         email: clientEmail,

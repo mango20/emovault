@@ -18,7 +18,7 @@ function EmoNavbar() {
   Axios.defaults.withCredentials = true;
   const cEmail = localStorage.getItem("user");
   useEffect(() => {
-    Axios.get(`https://emovault.herokuapp.com/api/users/admin?token=${token}`, {
+    Axios.get(`/api/users/admin?token=${token}`, {
       token: token,
     }).then((response) => {
       console.log(response.data.admin.firstName);

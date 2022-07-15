@@ -24,7 +24,7 @@ function Profile() {
   useEffect(() => {
     Axios.defaults.withCredentials = true;
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/patient?token=${token}&email=${cemail}`,
+      `/api/users/patient?token=${token}&email=${cemail}`,
 
       { email: cemail, token: token }
     )
@@ -108,7 +108,7 @@ function Profile() {
       setIsVisible(true);
       Axios.defaults.withCredentials = true;
       Axios.patch(
-        `http://localhost:5001/api/users/patient?email=${cemail}`,
+        `/api/users/patient?email=${cemail}`,
 
         {
           firstName: clientFirstName,
@@ -163,7 +163,7 @@ function Profile() {
           setimgurl(response.data.secure_url);
           Axios.defaults.withCredentials = true;
           Axios.patch(
-            `http://localhost:5001/api/users/patient?email=${cemail}`,
+            `/api/users/patient?email=${cemail}`,
 
             {
               firstName: clientFirstName,

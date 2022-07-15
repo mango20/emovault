@@ -36,7 +36,7 @@ function ListClients() {
   useEffect(() => {
     setclinicianName(cName);
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/getpatients?token=${token}&email=${cEmail}`,
+      `/api/users/getpatients?token=${token}&email=${cEmail}`,
       {
         email: cEmail,
         token: token,
@@ -54,7 +54,7 @@ function ListClients() {
 
   const exportPDF = () => {
     Axios.post(
-      `https://emovault.herokuapp.com/api/export/pdf/clinician?token=${token}`,
+      `/api/export/pdf/clinician?token=${token}`,
       {
         email: cEmail,
         token: token,
@@ -67,7 +67,7 @@ function ListClients() {
 
   const exportExcel = () => {
     Axios.post(
-      `https://emovault.herokuapp.com/api/export/excel/clinician?token=${token}`,
+      `/api/export/excel/clinician?token=${token}`,
       {
         email: cEmail,
         token: token,

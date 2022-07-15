@@ -29,13 +29,10 @@ function UserManagement() {
   const token = localStorage.getItem("token");
   useEffect(() => {
     console.log(userEmail);
-    Axios.get(
-      `https://emovault.herokuapp.com/api/users/getpatients?token=${token}&email=`,
-      {
-        email: userEmail,
-        token: token,
-      }
-    )
+    Axios.get(`/api/users/getpatients?token=${token}&email=`, {
+      email: userEmail,
+      token: token,
+    })
       .then((response) => {
         setclinicianClientList(response.data.patients);
 
@@ -57,13 +54,10 @@ function UserManagement() {
     setIsVisible(false);
     const setEmail = localStorage.getItem("Email");
     console.log(setEmail);
-    Axios.delete(
-      `https://emovault.herokuapp.com/api/users/patient?token=${token}&email=${setEmail}`,
-      {
-        email: setEmail,
-        token: token,
-      }
-    )
+    Axios.delete(`/api/users/patient?token=${token}&email=${setEmail}`, {
+      email: setEmail,
+      token: token,
+    })
       .then((response) => {
         console.log(response.data);
         setclinicianClientList(

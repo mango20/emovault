@@ -29,7 +29,7 @@ function ClinicianClients() {
   useEffect(() => {
     console.log(userEmail);
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/getpatients?token=${token}`,
+      `/api/users/getpatients?token=${token}`,
       {
         token: token,
         email: userEmail,
@@ -60,7 +60,7 @@ function ClinicianClients() {
   const [trackers, settrackers] = useState([]);
   var myvariable1;
   const getData = (email) => {
-    Axios.get(`http://localhost:5001/api/users/patient?email=${email}`, {
+    Axios.get(`/api/users/patient?email=${email}`, {
       email: email,
     })
       .then((response) => {
@@ -80,7 +80,7 @@ function ClinicianClients() {
         console.log(error);
       });
 
-    Axios.get(`http://localhost:5001/api/tracker/dailytracker?email=${email}`, {
+    Axios.get(`/api/tracker/dailytracker?email=${email}`, {
       email: email,
     })
       .then((response) => {
@@ -177,7 +177,7 @@ function ClinicianClients() {
 
   const exportPDF = (email) => {
     Axios.post(
-      `https://emovault.herokuapp.com/api/export/pdf/patient?token=${token}`,
+      `/api/export/pdf/patient?token=${token}`,
       {
         email: email,
         token: token,
@@ -189,7 +189,7 @@ function ClinicianClients() {
   };
   const exportExcel = (email) => {
     Axios.post(
-      `https://emovault.herokuapp.com/api/export/excel/patient?token=${token}`,
+      `/api/export/excel/patient?token=${token}`,
       {
         email: email,
         token: token,

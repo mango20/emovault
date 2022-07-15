@@ -19,7 +19,7 @@ function ClinicanChangePassword() {
     const oldpass = document.getElementById("oldpass").value;
     const confirmpass = document.getElementById("confirmpass").value;
 
-    Axios.patch(`https://emovault.herokuapp.com/api/auth/changepassword`, {
+    Axios.patch(`/api/auth/changepassword`, {
       token: token,
       email: email,
       newPassword: newuserpassword,

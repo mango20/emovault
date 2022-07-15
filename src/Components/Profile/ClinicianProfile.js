@@ -26,7 +26,7 @@ function ClinicianProfile() {
   const token = localStorage.getItem("token");
   useEffect(() => {
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/clinician?token=${token}&email=${cemail}`,
+      `/api/users/clinician?token=${token}&email=${cemail}`,
       {
         email: cemail,
         token: token,
@@ -117,7 +117,7 @@ function ClinicianProfile() {
       Axios.defaults.withCredentials = true;
 
       Axios.patch(
-        `https://emovault.herokuapp.com/api/users/clinician?email=${cemail}`,
+        `/api/users/clinician?email=${cemail}`,
         {
           token: token,
           firstName: clientFirstName,
@@ -174,7 +174,7 @@ function ClinicianProfile() {
         Axios.defaults.withCredentials = true;
 
         Axios.patch(
-          `https://emovault.herokuapp.com/api/users/clinician?email=${cemail}`,
+          `/api/users/clinician?email=${cemail}`,
           {
             token: token,
             firstName: clientFirstName,
@@ -269,7 +269,7 @@ function ClinicianProfile() {
       passRegex.test(password)
     ) {
       setIsVisible(true);
-      Axios.patch(`http://localhost:5001/api/users/patient?email=${cemail}`, {
+      Axios.patch(`/api/users/patient?email=${cemail}`, {
         firstName: clientFirstName,
         lastName: clientLastName,
         email: clientEmail,

@@ -28,12 +28,9 @@ function ClinicianList() {
   const token = localStorage.getItem("token");
   const cEmail = localStorage.getItem("user");
   useEffect(() => {
-    Axios.get(
-      `https://emovault.herokuapp.com/api/users/getclinicians?token=${token}`,
-      {
-        token: token,
-      }
-    )
+    Axios.get(`/api/users/getclinicians?token=${token}`, {
+      token: token,
+    })
       .then((response) => {
         setClinicianList(response.data.clinicians);
         console.log(response.data);
@@ -91,26 +88,20 @@ function ClinicianList() {
   };
 
   const exportPDF = (email) => {
-    Axios.post(
-      `https://emovault.herokuapp.com/api/export/pdf/admin?token=${token}`,
-      {
-        email: email,
-        token: token,
-      }
-    ).then((response) => {
+    Axios.post(`/api/export/pdf/admin?token=${token}`, {
+      email: email,
+      token: token,
+    }).then((response) => {
       console.log(response);
       saveAs(response.data.file, email + ".pdf");
     });
   };
 
   const exportExcel = (email) => {
-    Axios.post(
-      `https://emovault.herokuapp.com/api/export/excel/admin?token=${token}`,
-      {
-        email: email,
-        token: token,
-      }
-    ).then((response) => {
+    Axios.post(`/api/export/excel/admin?token=${token}`, {
+      email: email,
+      token: token,
+    }).then((response) => {
       console.log(response);
       window.open(response.data.file);
     });

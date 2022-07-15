@@ -24,7 +24,7 @@ function AdminProfile() {
 
   useEffect(() => {
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/admin?token=${token}`,
+      `/api/users/admin?token=${token}`,
 
       { email: cemail, token: token }
     )
@@ -108,7 +108,7 @@ function AdminProfile() {
       setIsVisible(true);
       Axios.defaults.withCredentials = true;
       Axios.patch(
-        `https://emovault.herokuapp.com/api/users/admin?email=${cemail}`,
+        `/api/users/admin?email=${cemail}`,
 
         {
           firstName: clientFirstName,
@@ -163,7 +163,7 @@ function AdminProfile() {
           setimgurl(response.data.secure_url);
           Axios.defaults.withCredentials = true;
           Axios.patch(
-            `https://emovault.herokuapp.com/users/patient?email=${cemail}`,
+            `/users/patient?email=${cemail}`,
 
             {
               firstName: clientFirstName,
@@ -255,7 +255,7 @@ function AdminProfile() {
     ) {
       setIsVisible(true);
       Axios.patch(
-        `https://emovault.herokuapp.com/api/users/patient?email=${cemail}`,
+        `/api/users/patient?email=${cemail}`,
 
         {
           firstName: clientFirstName,

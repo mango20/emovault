@@ -14,7 +14,7 @@ function Login() {
     const userPass = document.getElementById("userEmail").value;
 
     localStorage.setItem("user", userEmail);
-    Axios.post("https://emovault.herokuapp.com/api/auth/login", {
+    Axios.post("/api/auth/login", {
       email: email,
       password: password,
     })

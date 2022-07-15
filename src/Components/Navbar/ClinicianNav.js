@@ -17,7 +17,7 @@ function ClinicianNav() {
   const token = localStorage.getItem("token");
   useEffect(() => {
     Axios.get(
-      `https://emovault.herokuapp.com/api/auth/getinfo?token=${token}`,
+      `/api/auth/getinfo?token=${token}`,
       { token: token }
     ).then((response) => {
       setName(response.data.user.firstName);

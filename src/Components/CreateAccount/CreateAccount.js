@@ -124,7 +124,7 @@ function CreateAccount() {
         Axios.defaults.withCredentials = true;
 
         Axios.post(
-          "https://emovault.herokuapp.com/api/users/clinician?token=${token}",
+          "/api/users/clinician?token=${token}",
           {
             token: token,
             firstName: firstName,

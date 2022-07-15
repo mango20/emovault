@@ -55,7 +55,7 @@ function AdminChangePassword() {
       document.getElementById("pop-message").innerHTML =
         "Password Changed Successfully";
       setIsVisible(true);
-      Axios.patch(`http://localhost:5001/api/auth/changepassword`, {
+      Axios.patch(`/api/auth/changepassword`, {
         token: token,
         email: email,
         newPassword: newuserpassword,

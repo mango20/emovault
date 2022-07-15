@@ -25,7 +25,7 @@ function PreviewAccount() {
   const token = localStorage.getItem("token");
   useEffect(() => {
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/clinician?token=${token}&email=${cEmail}`,
+      `/api/users/clinician?token=${token}&email=${cEmail}`,
       {
         token: token,
         email: cEmail,

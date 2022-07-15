@@ -39,7 +39,7 @@ function EmovaultForm() {
   const [showDate, setShowDate] = useState(dateTime);
   useEffect(() => {
     Axios.get(
-      `https://emovault.herokuapp.com/api/tracker/questionoftheday?token=${token}`,
+      `/api/tracker/questionoftheday?token=${token}`,
       {
         token: token,
       }
@@ -303,7 +303,7 @@ function EmovaultForm() {
     ) {
       const ttlhr = document.getElementById("totalHr").value;
       const pl = document.getElementById("social").value;
-      Axios.post("https://emovault.herokuapp.com/api/tracker/dailytracker", {
+      Axios.post("/api/tracker/dailytracker", {
         token: token,
         date: todayDate,
         sleepAt: patientSleepAt,
@@ -375,7 +375,7 @@ function EmovaultForm() {
     }
     if (ans !== "") {
       console.log(p);
-      Axios.post("https://emovault.herokuapp.com/api/tracker/healthhabit", {
+      Axios.post("/api/tracker/healthhabit", {
         token: token,
         searchDate: todayDate,
         question: p,

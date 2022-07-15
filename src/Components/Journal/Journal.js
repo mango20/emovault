@@ -37,7 +37,7 @@ function Journal() {
   useEffect(() => {
     console.log(getPatientEmail);
     Axios.get(
-      `https://emovault.herokuapp.com/api/users/patient?token=${token}&email=${getPatientEmail}`,
+      `/api/users/patient?token=${token}&email=${getPatientEmail}`,
       { email: getPatientEmail, token: token }
     )
       .then((response) => {
@@ -57,7 +57,7 @@ function Journal() {
   useEffect(() => {
     console.log(getPatientEmail);
     Axios.get(
-      `https://emovault.herokuapp.com/api/tracker/dailytracker?token=${token}&email=${getPatientEmail}`,
+      `/api/tracker/dailytracker?token=${token}&email=${getPatientEmail}`,
       { email: getPatientEmail, token: token }
     )
       .then((response) => {
@@ -74,7 +74,7 @@ function Journal() {
   useEffect(() => {
     console.log(getPatientEmail);
     Axios.get(
-      `https://emovault.herokuapp.com/api/tracker/healthhabit?token=${token}&email=${getPatientEmail}`,
+      `/api/tracker/healthhabit?token=${token}&email=${getPatientEmail}`,
       { email: getPatientEmail, token: token }
     )
       .then((response) => {
